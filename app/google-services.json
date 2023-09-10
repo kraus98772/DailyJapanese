@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "487563588430",
+    "project_id": "dailyjapanese-9b417",
+    "storage_bucket": "dailyjapanese-9b417.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487563588430:android:98b3c276dcc73a6fdbe41f",
+        "android_client_info": {
+          "package_name": "com.example.dailyjapanese"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "487563588430-h1ft171h28vck7khoiijdfr1bep8llok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvQ61It7Xh6Vj67JO3852cr6wP1AapxTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "487563588430-h1ft171h28vck7khoiijdfr1bep8llok.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

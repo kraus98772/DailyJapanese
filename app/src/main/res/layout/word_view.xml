@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/englishWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Birthday"
+        android:textColor="@color/mid_grey"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/japaneseWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@color/dark_grey"
+        android:text="誕生日"
+        android:textSize="70dp"
+        android:layout_below="@+id/englishWord"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/kanaScript"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="たんじょうび"
+        android:textSize="28dp"
+        android:textColor="@color/mid_grey"
+        android:layout_below="@id/japaneseWord"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/romaji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tanjōbi"
+        android:textSize="22dp"
+        android:textColor="@color/mid_grey"
+        android:layout_below="@id/kanaScript"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>
