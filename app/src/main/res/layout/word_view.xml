@@ -20,6 +20,10 @@
         android:textColor="@color/dark_grey"
         android:text="誕生日"
         android:textSize="70dp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMaxTextSize="70dp"
+        android:autoSizeMinTextSize="10dp"
+        android:autoSizeStepGranularity="2sp"
         android:layout_below="@+id/englishWord"
         android:layout_centerHorizontal="true"/>
 

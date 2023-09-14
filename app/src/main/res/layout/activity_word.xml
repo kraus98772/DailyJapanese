@@ -30,45 +30,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/englishWord"
+    <include
+        layout="@layout/word_view"
+        android:id="@+id/word_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Birthday"
-        android:textSize="20dp"
-        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/topTitle"
+        android:layout_marginTop="60dp"/>
 
-    <TextView
-        android:id="@+id/japaneseWord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="誕生日"
-        android:maxLines="1"
-        android:textSize="70dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/englishWord" />
-
-    <TextView
-        android:id="@+id/kanaScript"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="たんじょうび"
-        android:textSize="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/japaneseWord" />
-
-    <TextView
-        android:id="@+id/romaji"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tanjōbi"
-        android:textSize="22dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kanaScript" />
 </androidx.constraintlayout.widget.ConstraintLayout>

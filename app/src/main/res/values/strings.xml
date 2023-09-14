@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DailyJapanese</string>
+    <string name="drawerOpen">Drawer has been opened</string>
+    <string name="drawerClose">Drawer has been closed</string>
 </resources>

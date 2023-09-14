@@ -10,8 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class WordAdapter(private val context: Context, private val words: ArrayList<Word>) :
-    RecyclerView.Adapter<WordAdapter.WordHolder>() {
+class WordAdapter(private val context: Context, private val words: ArrayList<Word>) : RecyclerView.Adapter<WordAdapter.WordHolder>() {
 
     class WordHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var japaneseWordView: TextView = itemView.findViewById(R.id.japaneseWord)

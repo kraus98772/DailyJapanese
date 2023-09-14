@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.ERROR
 import android.speech.tts.TextToSpeech.OnInitListener
-import android.widget.ImageButton
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +23,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity(), OnInitListener {
 
     private lateinit var tts: TextToSpeech
+    private var isMenuOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity(), OnInitListener {
 
         checkDayCounter()
         //createListData()
+
         tts = TextToSpeech(this, this)
 
         val newWordButton: MaterialButton = findViewById(R.id.newWordButton)
@@ -51,6 +55,41 @@ class MainActivity : AppCompatActivity(), OnInitListener {
         japaneseWordView.setOnClickListener{
             tts.speak(kanaScriptView.text, TextToSpeech.QUEUE_FLUSH, null, null)
         }
+
+        findViewById<ImageView>(R.id.openDrawerButton).setOnClickListener{
+            if (isMenuOpen)
+            {
+                closeMenu()
+
+            }else{
+                openMenu()
+
+            }
+        }
+
+        findViewById<View>(R.id.menu_dummy).setOnClickListener{
+            closeMenu()
+        }
+
+    }
+
+    private fun openMenu()
+    {
+        var menu = findViewById<LinearLayout>(R.id.menu_popup)
+        findViewById<View>(R.id.menu_dummy).visibility = View.VISIBLE
+        menu.visibility = View.VISIBLE
+        menu.animate().alpha(1.0f).setDuration(200).start()
+        isMenuOpen = true
+    }
+
+    private fun closeMenu()
+    {
+        var menu = findViewById<LinearLayout>(R.id.menu_popup)
+        findViewById<View>(R.id.menu_dummy).visibility = View.GONE
+        menu.animate().alpha(0f).setDuration(200).withEndAction(Runnable {
+            menu.visibility = View.GONE
+        }).start()
+        isMenuOpen = false
     }
 
     override fun onInit(status: Int) {
@@ -87,7 +126,9 @@ class MainActivity : AppCompatActivity(), OnInitListener {
 
     private fun getData(wordsArrayList: ArrayList<Word>, adapter: WordAdapter)
     {
+        println("making db helper")
         val dbHelper = DBHelper(this, null)
+        println("db helper made")
         val c = dbHelper.getWord(getDayCounter() + getOffset())
         c?.moveToFirst()
         wordsArrayList.clear()
