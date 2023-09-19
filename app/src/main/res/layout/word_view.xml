@@ -17,6 +17,19 @@
         android:textColor="@color/dark_grey"/>
 
     <TextView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:background="@drawable/menu_popup"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/info_popup"
+        android:visibility="gone"
+        android:layout_below="@+id/additional_info_button"
+        android:layout_marginTop="16dp"
+        android:translationZ="10dp"
+        android:gravity="center"
+        android:padding="5dp" />
+
+    <TextView
         android:id="@+id/englishWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

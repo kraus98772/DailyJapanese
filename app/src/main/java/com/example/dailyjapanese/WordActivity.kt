@@ -34,8 +34,28 @@ class WordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         val japaneseWordView:TextView = findViewById(R.id.japaneseWord)
         val kanaScriptView:TextView = findViewById(R.id.kanaScript)
+        val romajiView:TextView = findViewById(R.id.romaji)
+
         japaneseWordView.setOnClickListener{
-            tts.speak(kanaScriptView.text, TextToSpeech.QUEUE_FLUSH, null, null)
+            tts.speak(romajiView.text, TextToSpeech.QUEUE_FLUSH, null, null)
+        }
+
+        var infoButton:TextView = findViewById(R.id.additional_info_button)
+        var infoPopup:TextView = findViewById(R.id.info_popup)
+        infoButton.setOnClickListener{
+
+            if (infoPopup.visibility == View.GONE)
+            {
+                infoPopup.visibility = View.VISIBLE
+                findViewById<View>(R.id.menu_dummy).visibility = View.VISIBLE
+            }else{
+                infoPopup.visibility = View.GONE
+            }
+        }
+
+        findViewById<View>(R.id.menu_dummy).setOnClickListener{
+            findViewById<View>(R.id.menu_dummy).visibility = View.GONE
+            infoPopup.visibility = View.GONE
         }
 
     }
@@ -65,13 +85,14 @@ class WordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val japaneseWord : TextView = findViewById(R.id.japaneseWord)
         val kanaScript : TextView = findViewById(R.id.kanaScript)
         val romaji : TextView = findViewById(R.id.romaji)
-        val additional_info : TextView = findViewById(R.id.additional_info_button)
+        val infoButton : TextView = findViewById(R.id.additional_info_button)
+        val additionalInfo : TextView = findViewById(R.id.info_popup)
 
         englishWord.text = word.englishWord
         japaneseWord.text = word.japaneseWord
         if(word.kanaScript != "")
         {
-            additional_info.visibility = View.VISIBLE
+            kanaScript.visibility = View.VISIBLE
             kanaScript.text = word.kanaScript
         }else
         {
@@ -82,9 +103,10 @@ class WordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         if (word.additionalInfo == "")
         {
-            additional_info.visibility = View.GONE
+            infoButton.visibility = View.GONE
         }else{
-            additional_info.visibility = View.VISIBLE
+            infoButton.visibility = View.VISIBLE
+            additionalInfo.text = word.additionalInfo
         }
     }
 }

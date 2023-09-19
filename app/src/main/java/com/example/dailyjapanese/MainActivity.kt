@@ -50,9 +50,10 @@ class MainActivity : AppCompatActivity(), OnInitListener {
 
         val japaneseWordView:TextView = findViewById(R.id.japaneseWord)
         val kanaScriptView:TextView = findViewById(R.id.kanaScript)
+        val romajiView:TextView = findViewById(R.id.romaji)
         //TODO: When japanese text is too big it cuts the last symbols
         japaneseWordView.setOnClickListener{
-            tts.speak(kanaScriptView.text, TextToSpeech.QUEUE_FLUSH, null, null)
+            tts.speak(romajiView.text, TextToSpeech.QUEUE_FLUSH, null, null)
         }
 
         findViewById<ImageView>(R.id.openDrawerButton).setOnClickListener{
@@ -68,8 +69,21 @@ class MainActivity : AppCompatActivity(), OnInitListener {
 
         findViewById<View>(R.id.menu_dummy).setOnClickListener{
             closeMenu()
+            findViewById<TextView>(R.id.info_popup).visibility = View.GONE
         }
 
+        var infoButton:TextView = findViewById(R.id.additional_info_button)
+        var infoPopup:TextView = findViewById(R.id.info_popup)
+        infoButton.setOnClickListener{
+
+            if (infoPopup.visibility == View.GONE)
+            {
+                infoPopup.visibility = View.VISIBLE
+                findViewById<View>(R.id.menu_dummy).visibility = View.VISIBLE
+            }else{
+                infoPopup.visibility = View.GONE
+            }
+        }
     }
 
     private fun openMenu()
@@ -116,7 +130,8 @@ class MainActivity : AppCompatActivity(), OnInitListener {
         val japaneseWord : TextView = findViewById(R.id.japaneseWord)
         val kanaScript : TextView = findViewById(R.id.kanaScript)
         val romaji : TextView = findViewById(R.id.romaji)
-        val additionalInfo : TextView = findViewById(R.id.additional_info_button)
+        val infoButton : TextView = findViewById(R.id.additional_info_button)
+        val additionalInfo : TextView = findViewById(R.id.info_popup)
 
         englishWord.text = word.englishWord
         japaneseWord.text = word.japaneseWord
@@ -133,9 +148,10 @@ class MainActivity : AppCompatActivity(), OnInitListener {
 
         if (word.additionalInfo == "")
         {
-            additionalInfo.visibility = View.GONE
+            infoButton.visibility = View.GONE
         }else{
-            kanaScript.visibility = View.VISIBLE
+            infoButton.visibility = View.VISIBLE
+            additionalInfo.text = word.additionalInfo
         }
     }
 
