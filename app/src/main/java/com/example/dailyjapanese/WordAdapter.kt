@@ -49,6 +49,7 @@ class WordAdapter(private val context: Context, private val words: ArrayList<Wor
             extras.putString("englishWord", word.englishWord)
             extras.putString("kanaScript", word.kanaScript)
             extras.putString("romaji", word.romaji)
+            extras.putString("additional_info", word.additionalInfo)
             intent.putExtras(extras)
             context.startActivity(intent)
         }

@@ -3,6 +3,7 @@ package com.example.dailyjapanese
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -22,8 +23,9 @@ class WordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         var englishWord = intent.getStringExtra("englishWord")
         var kanaScript = intent.getStringExtra("kanaScript")
         var romaji = intent.getStringExtra("romaji")
+        var additionalInfo = intent.getStringExtra("additional_info")
 
-        setWord(Word(japaneseWord.toString(), kanaScript.toString(), romaji.toString(), englishWord.toString()))
+        setWord(Word(japaneseWord.toString(), kanaScript.toString(), romaji.toString(), englishWord.toString(), additionalInfo.toString()))
 
         var returnButton : ImageButton = findViewById(R.id.returnButton)
         returnButton.setOnClickListener{
@@ -63,10 +65,26 @@ class WordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val japaneseWord : TextView = findViewById(R.id.japaneseWord)
         val kanaScript : TextView = findViewById(R.id.kanaScript)
         val romaji : TextView = findViewById(R.id.romaji)
+        val additional_info : TextView = findViewById(R.id.additional_info_button)
 
         englishWord.text = word.englishWord
         japaneseWord.text = word.japaneseWord
-        kanaScript.text = word.kanaScript
+        if(word.kanaScript != "")
+        {
+            additional_info.visibility = View.VISIBLE
+            kanaScript.text = word.kanaScript
+        }else
+        {
+            kanaScript.visibility = View.GONE
+        }
+
         romaji.text = word.romaji
+
+        if (word.additionalInfo == "")
+        {
+            additional_info.visibility = View.GONE
+        }else{
+            additional_info.visibility = View.VISIBLE
+        }
     }
 }

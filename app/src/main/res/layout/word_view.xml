@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:id="@+id/additional_info_button"
+        android:background="@drawable/info_button_bg"
+        android:text="i"
+        android:layout_centerHorizontal="true"
+        android:maxLines="1"
+        android:gravity="center"
+        android:layout_marginBottom="7dp"
+        android:textColor="@color/dark_grey"/>
 
     <TextView
         android:id="@+id/englishWord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Birthday"
+        android:layout_below="@+id/additional_info_button"
         android:textColor="@color/mid_grey"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"/>

@@ -108,15 +108,16 @@ class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) :
 
     companion object {
         private const val DATABASE_NAME = "DAILY_JAPANESE.sqlite3"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val ASSETS_PATH = "databases"
 
         const val TABLE_NAME = "vocabulary"
         const val ID_COL = "id"
         const val ENGLISH_WORD_COL = "english"
         const val ORIGINAL_WORD_COL = "original_japanese"
-        const val KANA_COL = "hiragana"
+        const val KANA_COL = "kana"
         const val ROMAJI_COL = "romaji"
+        const val ADDITIONAL_INFO = "additional_info"
     }
 
 }
