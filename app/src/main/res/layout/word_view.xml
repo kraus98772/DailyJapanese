@@ -25,7 +25,7 @@
         android:visibility="gone"
         android:layout_below="@+id/additional_info_button"
         android:layout_marginTop="16dp"
-        android:translationZ="10dp"
+        android:translationZ="15dp"
         android:gravity="center"
         android:padding="5dp" />
 

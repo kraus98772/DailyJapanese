@@ -102,8 +102,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/menu_dummy"
-        android:translationZ="8dp"
-        android:visibility="gone"/>
+        android:translationZ="9dp"
+        android:visibility="invisible"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/info_dummy"
+        android:translationZ="9dp"
+        android:visibility="invisible"/>
 
     <include
         layout="@layout/word_view"

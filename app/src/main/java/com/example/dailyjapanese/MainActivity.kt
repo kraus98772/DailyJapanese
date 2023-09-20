@@ -8,6 +8,7 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.ERROR
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -23,7 +24,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity(), OnInitListener {
 
     private lateinit var tts: TextToSpeech
-    private var isMenuOpen = false
+    //private var isMenuOpen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,8 @@ class MainActivity : AppCompatActivity(), OnInitListener {
 
         val wordsRecyclerView:RecyclerView = findViewById(R.id.wordsRecyclerView);
         val wordsArrayList: ArrayList<Word> = ArrayList();
-        val adapter: WordAdapter = WordAdapter(this, wordsArrayList);
+        val adapter = WordAdapter(this, wordsArrayList);
+
         wordsRecyclerView.adapter = adapter;
         wordsRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -49,60 +51,27 @@ class MainActivity : AppCompatActivity(), OnInitListener {
         }
 
         val japaneseWordView:TextView = findViewById(R.id.japaneseWord)
-        val kanaScriptView:TextView = findViewById(R.id.kanaScript)
         val romajiView:TextView = findViewById(R.id.romaji)
-        //TODO: When japanese text is too big it cuts the last symbols
+
         japaneseWordView.setOnClickListener{
             tts.speak(romajiView.text, TextToSpeech.QUEUE_FLUSH, null, null)
         }
 
-        findViewById<ImageView>(R.id.openDrawerButton).setOnClickListener{
-            if (isMenuOpen)
-            {
-                closeMenu()
+        PopupHelper.setupPopup(
+            findViewById(R.id.additional_info_button),
+            findViewById(R.id.info_popup),
+            findViewById(R.id.info_dummy),
+            AnimationUtils.loadAnimation(this, R.anim.open_menu),
+            AnimationUtils.loadAnimation(this, R.anim.close_menu)
+        )
 
-            }else{
-                openMenu()
-
-            }
-        }
-
-        findViewById<View>(R.id.menu_dummy).setOnClickListener{
-            closeMenu()
-            findViewById<TextView>(R.id.info_popup).visibility = View.GONE
-        }
-
-        var infoButton:TextView = findViewById(R.id.additional_info_button)
-        var infoPopup:TextView = findViewById(R.id.info_popup)
-        infoButton.setOnClickListener{
-
-            if (infoPopup.visibility == View.GONE)
-            {
-                infoPopup.visibility = View.VISIBLE
-                findViewById<View>(R.id.menu_dummy).visibility = View.VISIBLE
-            }else{
-                infoPopup.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun openMenu()
-    {
-        var menu = findViewById<LinearLayout>(R.id.menu_popup)
-        findViewById<View>(R.id.menu_dummy).visibility = View.VISIBLE
-        menu.visibility = View.VISIBLE
-        menu.animate().alpha(1.0f).setDuration(200).start()
-        isMenuOpen = true
-    }
-
-    private fun closeMenu()
-    {
-        var menu = findViewById<LinearLayout>(R.id.menu_popup)
-        findViewById<View>(R.id.menu_dummy).visibility = View.GONE
-        menu.animate().alpha(0f).setDuration(200).withEndAction(Runnable {
-            menu.visibility = View.GONE
-        }).start()
-        isMenuOpen = false
+        PopupHelper.setupPopup(
+            findViewById(R.id.openDrawerButton),
+            findViewById(R.id.menu_popup),
+            findViewById(R.id.menu_dummy),
+            AnimationUtils.loadAnimation(this, R.anim.open_menu),
+            AnimationUtils.loadAnimation(this, R.anim.close_menu)
+        )
     }
 
     override fun onInit(status: Int) {
@@ -212,7 +181,6 @@ class MainActivity : AppCompatActivity(), OnInitListener {
 
     private fun checkDayCounter()
     {
-        // TODO: Add offset field if someone wants to generate more words so the day count stays the same
         val sharedPreference = getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
         val editor = sharedPreference.edit()
         if (!sharedPreference.contains(DAY_COUNTER) && !sharedPreference.contains(CURRENT_DATE))
@@ -234,10 +202,10 @@ class MainActivity : AppCompatActivity(), OnInitListener {
     }
 
     companion object{
-        private val PREFERENCES = "day_counter_pref"
-        private val DAY_COUNTER = "day_counter"
-        private val CURRENT_DATE = "current_date"
-        private val DAY_OFFSET = "day_offset"
+        private const val PREFERENCES = "day_counter_pref"
+        private const val DAY_COUNTER = "day_counter"
+        private const val CURRENT_DATE = "current_date"
+        private const val DAY_OFFSET = "day_offset"
     }
 
 }
