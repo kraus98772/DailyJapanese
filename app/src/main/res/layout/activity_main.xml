@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
 
 
     <RelativeLayout
@@ -34,7 +35,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
-            android:id="@+id/openDrawerButton"
+            android:id="@+id/open_drawer_button"
             android:src="@drawable/menu" />
 
     </RelativeLayout>
@@ -58,6 +59,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/categories_button"
             android:text="Categories"
             android:backgroundTint="@color/light_grey2"
             style="@style/btn_style"
@@ -69,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Settings"
+            android:id="@+id/settings_button"
             android:backgroundTint="@color/light_grey2"
             style="@style/btn_style"
             android:textColor="@color/dark_grey"
@@ -79,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hiragana"
+            android:id="@+id/hiragana_button"
             android:backgroundTint="@color/light_grey2"
             style="@style/btn_style"
             android:textColor="@color/dark_grey"
@@ -89,6 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Katakana"
+            android:id="@+id/katakana_button"
             android:backgroundTint="@color/light_grey2"
             style="@style/btn_style"
             android:textColor="@color/dark_grey"
@@ -103,14 +108,14 @@
         android:layout_height="match_parent"
         android:id="@+id/menu_dummy"
         android:translationZ="9dp"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/info_dummy"
         android:translationZ="9dp"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
 
     <include
         layout="@layout/word_view"
@@ -120,6 +125,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBar"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginTop="60dp"/>
 
     <com.google.android.material.button.MaterialButton

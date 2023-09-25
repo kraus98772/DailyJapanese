@@ -1,21 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".KanaActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="364dp"
-        android:layout_height="47dp"
-        android:text="ALL MAIN KANA"
-        android:textStyle="bold"
-        android:background="@drawable/kana_select_button_off"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.example.dailyjapanese.SelectableView
+            android:id="@+id/all_main_kana"
+            android:layout_width="364dp"
+            android:layout_height="47dp"
+            android:text="ALL MAIN KANA"
+            app:selected="false"
+            android:background="@drawable/kana_select_button_off"
+            android:gravity="center"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/main_kana_recycler"
+
+            app:layout_constraintTop_toBottomOf="@id/all_main_kana"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.example.dailyjapanese.SelectableView
+            android:id="@+id/all_dakuten_kana"
+            android:layout_width="364dp"
+            android:layout_height="47dp"
+            android:text="ALL DAKUTEN KANA"
+            app:selected="false"
+            android:background="@drawable/kana_select_button_off"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_kana_recycler" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/dakuten_kana_recycler"
+            app:layout_constraintTop_toBottomOf="@id/all_dakuten_kana"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.example.dailyjapanese.SelectableView
+            android:id="@+id/all_combination_kana"
+            android:layout_width="364dp"
+            android:layout_height="47dp"
+            android:text="ALL COMBINATION KANA"
+            app:selected="false"
+            android:background="@drawable/kana_select_button_off"
+            android:gravity="center"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dakuten_kana_recycler" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/combination_kana_recycler"
+            app:layout_constraintTop_toBottomOf="@id/all_combination_kana"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/kana_spacingV"
+            android:paddingHorizontal="30dp"
+            app:layout_constraintTop_toBottomOf="@+id/combination_kana_recycler"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/start_test_button"
+            android:textColor="@color/dark_grey"
+            android:text="START THE TEST"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

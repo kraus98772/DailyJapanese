@@ -14,16 +14,12 @@ class WordAdapter(private val context: Context, private val words: ArrayList<Wor
 
     class WordHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var japaneseWordView: TextView = itemView.findViewById(R.id.japaneseWord)
-//        private var kanaScriptView: TextView = itemView.findViewById(R.id.kanaScript)
-//        private var romajiView: TextView = itemView.findViewById(R.id.romaji)
         private var englishWordView: TextView = itemView.findViewById(R.id.englishWord)
         var wordView: LinearLayout = itemView.findViewById(R.id.word_view)
 
         fun setDetails (newWord: Word)
         {
             japaneseWordView.text = newWord.japaneseWord
-//            kanaScriptView.text = newWord.kanaScript
-//            romajiView.text = newWord.romaji
             englishWordView.text = newWord.englishWord
         }
     }
@@ -40,7 +36,7 @@ class WordAdapter(private val context: Context, private val words: ArrayList<Wor
 
 
     override fun onBindViewHolder(holder: WordHolder, position: Int) {
-        var word: Word = words[position];
+        var word: Word = words[position]
         holder.setDetails(word)
         holder.wordView.setOnClickListener{
             var intent = Intent(context, WordActivity::class.java)

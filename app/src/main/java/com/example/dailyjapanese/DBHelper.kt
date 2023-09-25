@@ -48,20 +48,9 @@ class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) :
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-//        val query = ("CREATE TABLE " + TABLE_NAME + " ("
-//                + ID_COL + " INTEGER PRIMARY KEY, " +
-//                ORIGINAL_WORD_COL + " TEXT, " +
-//                KANA_COL + " TEXT, " +
-//                ROMAJI_COL + " TEXT, " +
-//                ENGLISH_WORD_COL + " TEXT)")
-//
-//        // Not sure about the null thing
-//        db?.execSQL(query)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-//        db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
-//        onCreate(db)
     }
 
     private fun installDatabaseFromAssets() {
@@ -96,6 +85,44 @@ class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
+    fun getSelectedKana(kanaFromDisplay: ArrayList<Kana>, result: ArrayList<Kana>, kanamoji: Kanamoji)
+    {
+        val db = this.readableDatabase
+        var result = ArrayList<Kana>()
+
+        /*
+
+        1. Get All Kana
+        2. Find the first one from kanaFromDisplay
+        3. Append result with kana one by one until next kana that isFront = 1
+        4. Repeat
+
+        !!! kanaFromDisplay should be in correct order to ensure optimal time
+        */
+        val kanamojiName = kanamoji.value
+        var cur = db.rawQuery("SELECT $kanamojiName, isFront FROM $KANA_TABLE_NAME", null)
+
+    }
+
+    fun getDisplayKana(kanaType: KanaType, kanamoji: Kanamoji) : ArrayList<Kana>
+    {
+        var kana = ArrayList<Kana>()
+        val db = this.readableDatabase
+        val kanamojiName = kanamoji.value
+        val kanaTypeName = kanaType.value
+        var cur = db.rawQuery("SELECT $kanamojiName, romaji FROM $KANA_TABLE_NAME WHERE kanaType = $kanaTypeName AND isFront = 1", null)
+
+        cur.moveToFirst()
+        while (cur?.isAfterLast == false)
+        {
+            kana.add(Kana(cur.getString(0), cur.getString(1)))
+            cur.moveToNext()
+        }
+        cur.close()
+        db.close()
+        return kana
+    }
+
     fun getWord() : Cursor? {
         val db = this.readableDatabase
         return db.rawQuery("SELECT * FROM $TABLE_NAME", null)
@@ -108,7 +135,7 @@ class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) :
 
     companion object {
         private const val DATABASE_NAME = "DAILY_JAPANESE.sqlite3"
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
         private const val ASSETS_PATH = "databases"
 
         const val TABLE_NAME = "vocabulary"
@@ -118,6 +145,8 @@ class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) :
         const val KANA_COL = "kana"
         const val ROMAJI_COL = "romaji"
         const val ADDITIONAL_INFO = "additional_info"
+
+        const val KANA_TABLE_NAME = "kana"
     }
 
 }

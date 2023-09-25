@@ -1,6 +1,7 @@
 package com.example.dailyjapanese
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import android.os.Bundle
@@ -60,18 +61,31 @@ class MainActivity : AppCompatActivity(), OnInitListener {
         PopupHelper.setupPopup(
             findViewById(R.id.additional_info_button),
             findViewById(R.id.info_popup),
-            findViewById(R.id.info_dummy),
-            AnimationUtils.loadAnimation(this, R.anim.open_menu),
-            AnimationUtils.loadAnimation(this, R.anim.close_menu)
+            findViewById(R.id.info_dummy)
         )
 
         PopupHelper.setupPopup(
-            findViewById(R.id.openDrawerButton),
+            findViewById(R.id.open_drawer_button),
             findViewById(R.id.menu_popup),
-            findViewById(R.id.menu_dummy),
-            AnimationUtils.loadAnimation(this, R.anim.open_menu),
-            AnimationUtils.loadAnimation(this, R.anim.close_menu)
+            findViewById(R.id.menu_dummy)
         )
+        setupMenuButtons()
+    }
+
+
+    private fun setupMenuButtons()
+    {
+        findViewById<MaterialButton>(R.id.hiragana_button).setOnClickListener{
+            var intent = Intent(this, KanaActivity::class.java)
+            intent.putExtra(KANA_EXTRA, "hiragana")
+            startActivity(intent)
+        }
+
+        findViewById<MaterialButton>(R.id.katakana_button).setOnClickListener{
+            var intent = Intent(this, KanaActivity::class.java)
+            intent.putExtra(KANA_EXTRA, "katakana")
+            startActivity(intent)
+        }
     }
 
     override fun onInit(status: Int) {
@@ -206,6 +220,7 @@ class MainActivity : AppCompatActivity(), OnInitListener {
         private const val DAY_COUNTER = "day_counter"
         private const val CURRENT_DATE = "current_date"
         private const val DAY_OFFSET = "day_offset"
+        private const val KANA_EXTRA = "kana"
     }
 
 }

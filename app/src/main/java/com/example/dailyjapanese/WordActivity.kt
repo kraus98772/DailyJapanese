@@ -44,9 +44,7 @@ class WordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         PopupHelper.setupPopup(
             findViewById(R.id.additional_info_button),
             findViewById(R.id.info_popup),
-            findViewById(R.id.menu_dummy),
-            AnimationUtils.loadAnimation(this, R.anim.open_menu),
-            AnimationUtils.loadAnimation(this, R.anim.close_menu)
+            findViewById(R.id.menu_dummy)
         )
 
     }
