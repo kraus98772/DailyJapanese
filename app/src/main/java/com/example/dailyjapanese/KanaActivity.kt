@@ -12,50 +12,44 @@ class KanaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kana)
 
-        var allMainKanaSelectable = findViewById<SelectableView>(R.id.all_main_kana)
-        var allDakutenKanaSelectable = findViewById<SelectableView>(R.id.all_dakuten_kana)
-        var allCombinationKanaSelectable = findViewById<SelectableView>(R.id.all_combination_kana)
-
         var dbHelper = DBHelper(this, null)
-
         var spacingH = resources.getDimensionPixelSize(R.dimen.kana_spacingH2)
         var spacingV = resources.getDimensionPixelSize(R.dimen.kana_spacingV)
 
-        val mainKanaArrayList: ArrayList<Kana> = dbHelper.getDisplayKana(KanaType.MAIN, Kanamoji.hiragana)
-        val mainKanaAdapter = KanaAdapter(allMainKanaSelectable,this, mainKanaArrayList, false)
-        setupKanaSelectionRecycler(findViewById(R.id.main_kana_recycler), mainKanaAdapter, 2, spacingH, spacingV, allMainKanaSelectable);
 
-        val dakutenArrayList: ArrayList<Kana> = dbHelper.getDisplayKana(KanaType.DAKUTEN, Kanamoji.hiragana)
-        val dakutenKanaAdapter = KanaAdapter(allDakutenKanaSelectable,this, dakutenArrayList, true)
-        setupKanaSelectionRecycler(findViewById(R.id.dakuten_kana_recycler), dakutenKanaAdapter, 1, 0, spacingV, allDakutenKanaSelectable)
+        setupKanaSelection(dbHelper,
+            findViewById(R.id.main_kana_recycler),
+            findViewById(R.id.all_main_kana),
+            Kanamoji.hiragana, KanaType.MAIN,
+            2,
+            spacingH, spacingV)
 
-        val combinationArrayList: ArrayList<Kana> = dbHelper.getDisplayKana(KanaType.COMBINATION, Kanamoji.hiragana)
-        val combinationKanaAdapter = KanaAdapter(allCombinationKanaSelectable,this, combinationArrayList, false)
-        setupKanaSelectionRecycler(findViewById(R.id.combination_kana_recycler), combinationKanaAdapter, 2, spacingH, spacingV, allCombinationKanaSelectable)
+        setupKanaSelection(dbHelper,
+            findViewById(R.id.dakuten_kana_recycler),
+            findViewById(R.id.all_dakuten_kana),
+            Kanamoji.hiragana, KanaType.DAKUTEN,
+            1,
+            spacingH, spacingV)
 
-        allMainKanaSelectable.setOnClickListener{
-            selectAll(allMainKanaSelectable, mainKanaArrayList, mainKanaAdapter, findViewById(R.id.main_kana_recycler), 2)
-        }
-
-        allDakutenKanaSelectable.setOnClickListener{
-            selectAll(allDakutenKanaSelectable, dakutenArrayList, dakutenKanaAdapter, findViewById(R.id.dakuten_kana_recycler), 1)
-        }
-
-        allCombinationKanaSelectable.setOnClickListener{
-            selectAll(allCombinationKanaSelectable, combinationArrayList, combinationKanaAdapter, findViewById(R.id.combination_kana_recycler), 2)
-        }
-
+        setupKanaSelection(dbHelper,
+            findViewById(R.id.combination_kana_recycler),
+            findViewById(R.id.all_combination_kana),
+            Kanamoji.hiragana, KanaType.COMBINATION,
+            2,
+            spacingH, spacingV)
 
 
         val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
-            // Refresh your data here
             swipeRefreshLayout.isRefreshing = false
         }
     }
 
-    private fun setupKanaSelectionRecycler(recyclerView: RecyclerView, kanaAdapter: KanaAdapter, columnSpan: Int, spacingH: Int, spacingV: Int, allKanaSelector: SelectableView)
+
+    private fun setupKanaSelection(dbHelper: DBHelper, recyclerView: RecyclerView, allKanaSelectable: SelectableView, kanamoji: Kanamoji, kanaType: KanaType, columnSpan: Int, spacingH: Int, spacingV: Int)
     {
+        val kana: ArrayList<Kana> = dbHelper.getDisplayKana(kanaType, kanamoji)
+        val kanaAdapter = KanaAdapter(allKanaSelectable,this, kana, false)
 
         recyclerView.adapter = kanaAdapter;
         recyclerView.layoutManager = object: GridLayoutManager(this, columnSpan){
@@ -65,6 +59,10 @@ class KanaActivity : AppCompatActivity() {
         }
 
         recyclerView.addItemDecoration(GridSpacingItemDecoration(columnSpan, spacingH, spacingV, true, 0))
+
+        allKanaSelectable.setOnClickListener{
+            selectAll(allKanaSelectable, kana, kanaAdapter, recyclerView, columnSpan)
+        }
     }
 
     private fun selectAll(allKanaSelectable: SelectableView, kanaArrayList: ArrayList<Kana>, kanaAdapter: KanaAdapter, recyclerView: RecyclerView, columnSpan: Int)
@@ -88,9 +86,9 @@ class KanaActivity : AppCompatActivity() {
                 }
             }
         }
-        recyclerView.adapter = kanaAdapter;
-        recyclerView.layoutManager = GridLayoutManager(this, columnSpan);
-        kanaAdapter.notifyDataSetChanged();
+        recyclerView.adapter = kanaAdapter
+        recyclerView.layoutManager = GridLayoutManager(this, columnSpan)
+        kanaAdapter.notifyDataSetChanged()
         allKanaSelectable.toggleSelect()
     }
 
