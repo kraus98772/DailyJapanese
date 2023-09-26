@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.example.dailyjapanese.SelectableView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="330dp"
-    android:layout_height="46dp"
+    android:layout_width="310dp"
+    android:layout_height="@dimen/selectable_height"
     android:id="@+id/kana_selectable_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:text="あ/a"

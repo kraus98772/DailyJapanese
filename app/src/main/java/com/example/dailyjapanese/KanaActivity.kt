@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class KanaActivity : AppCompatActivity() {
 
@@ -17,7 +18,7 @@ class KanaActivity : AppCompatActivity() {
 
         var dbHelper = DBHelper(this, null)
 
-        var spacingH = resources.getDimensionPixelSize(R.dimen.kana_spacingH)
+        var spacingH = resources.getDimensionPixelSize(R.dimen.kana_spacingH2)
         var spacingV = resources.getDimensionPixelSize(R.dimen.kana_spacingV)
 
         val mainKanaArrayList: ArrayList<Kana> = dbHelper.getDisplayKana(KanaType.MAIN, Kanamoji.hiragana)
@@ -44,13 +45,24 @@ class KanaActivity : AppCompatActivity() {
             selectAll(allCombinationKanaSelectable, combinationArrayList, combinationKanaAdapter, findViewById(R.id.combination_kana_recycler), 2)
         }
 
+
+
+        val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
+        swipeRefreshLayout.setOnRefreshListener {
+            // Refresh your data here
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun setupKanaSelectionRecycler(recyclerView: RecyclerView, kanaAdapter: KanaAdapter, columnSpan: Int, spacingH: Int, spacingV: Int, allKanaSelector: SelectableView)
     {
 
         recyclerView.adapter = kanaAdapter;
-        recyclerView.layoutManager = GridLayoutManager(this, columnSpan)
+        recyclerView.layoutManager = object: GridLayoutManager(this, columnSpan){
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
+        }
 
         recyclerView.addItemDecoration(GridSpacingItemDecoration(columnSpan, spacingH, spacingV, true, 0))
     }

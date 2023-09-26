@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="kana_spacingH">30dp</dimen>
+    <dimen name="kana_spacingH2">20dp</dimen>
     <dimen name="kana_spacingV">20dp</dimen>
+    <dimen name="selectable_height">45dp</dimen>
 </resources>
