@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import java.io.File
 import java.io.FileOutputStream
+import java.util.Collections
 
 class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) : SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
 
@@ -85,9 +86,14 @@ class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-    fun getSelectedKana(kanaFromDisplay: ArrayList<Kana>, result: ArrayList<Kana>, kanamoji: Kanamoji)
+    fun getSelectedKana(kanaFromDisplay: ArrayList<Kana>, kanamoji: Kanamoji) : ArrayList<Kana>
     {
         val db = this.readableDatabase
+        var kana = ArrayList<Kana>()
+
+        kana.addAll(kanaFromDisplay)
+
+        kana.reverse()
         var result = ArrayList<Kana>()
 
         /*
@@ -100,8 +106,29 @@ class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) :
         !!! kanaFromDisplay should be in correct order to ensure optimal time
         */
         val kanamojiName = kanamoji.value
-        var cur = db.rawQuery("SELECT $kanamojiName, isFront FROM $KANA_TABLE_NAME", null)
+        var cur = db.rawQuery("SELECT $kanamojiName, romaji, isFront FROM $KANA_TABLE_NAME", null)
+        cur.moveToFirst()
+        while (kana.size != 0 && !cur.isAfterLast)
+        {
+            if (cur.getString(0) == kana.last().kana)
+            {
+                result.add(Kana(cur.getString(0), cur.getString(1)))
+                cur.moveToNext()
+                while (!cur.isAfterLast && cur.getInt(2) != 1)
+                {
+                    result.add(Kana(cur.getString(0), cur.getString(1)))
+                    println("")
+                    cur.moveToNext()
+                }
+                kana.removeLast()
+            }else
+            {
+                cur.moveToNext()
+            }
 
+        }
+        cur.close()
+        return result
     }
 
     fun getDisplayKana(kanaType: KanaType, kanamoji: Kanamoji) : ArrayList<Kana>

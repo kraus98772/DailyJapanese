@@ -9,9 +9,6 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.ERROR
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.view.View
-import android.view.animation.AnimationUtils
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -76,14 +73,14 @@ class MainActivity : AppCompatActivity(), OnInitListener {
     private fun setupMenuButtons()
     {
         findViewById<MaterialButton>(R.id.hiragana_button).setOnClickListener{
-            var intent = Intent(this, KanaActivity::class.java)
-            intent.putExtra(KANA_EXTRA, "hiragana")
+            var intent = Intent(this, KanaSelectionActivity::class.java)
+            intent.putExtra(KANAMOJI, Kanamoji.hiragana)
             startActivity(intent)
         }
 
         findViewById<MaterialButton>(R.id.katakana_button).setOnClickListener{
-            var intent = Intent(this, KanaActivity::class.java)
-            intent.putExtra(KANA_EXTRA, "katakana")
+            var intent = Intent(this, KanaSelectionActivity::class.java)
+            intent.putExtra(KANAMOJI, Kanamoji.katakana)
             startActivity(intent)
         }
     }
@@ -220,7 +217,7 @@ class MainActivity : AppCompatActivity(), OnInitListener {
         private const val DAY_COUNTER = "day_counter"
         private const val CURRENT_DATE = "current_date"
         private const val DAY_OFFSET = "day_offset"
-        private const val KANA_EXTRA = "kana"
+        private const val KANAMOJI = "kanamoji"
     }
 
 }

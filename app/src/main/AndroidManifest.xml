@@ -18,7 +18,10 @@
         android:theme="@style/Theme.DailyJapanese"
         tools:targetApi="31">
         <activity
-            android:name=".KanaActivity"
+            android:name=".KanaTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".KanaSelectionActivity"
             android:exported="false" />
         <activity
             android:name=".WordActivity"

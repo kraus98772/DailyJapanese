@@ -6,4 +6,5 @@
     <color name="light_grey2">#BBBBBB</color>
     <color name="mid_grey">#808080</color>
     <color name="dark_grey">#333333</color>
+    <color name="dark_grey_text">#626262</color>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/swipe_refresh_layout"
-    tools:context=".KanaActivity"
+    tools:context=".KanaSelectionActivity"
     >
 
     <androidx.core.widget.NestedScrollView
@@ -16,6 +16,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="#fff"
+                android:src="@drawable/left_arrow"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:id="@+id/returnButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.example.dailyjapanese.SelectableView
                 android:id="@+id/all_main_kana"
                 android:layout_width="match_parent"
@@ -23,6 +34,7 @@
                 android:layout_marginTop="@dimen/kana_spacingV"
                 android:text="ALL MAIN KANA"
                 android:layout_centerHorizontal="true"
+                android:layout_below="@+id/returnButton"
                 app:selected="false"
                 android:layout_marginHorizontal="@dimen/kana_spacingH"
                 android:background="@drawable/kana_select_button_off"
@@ -80,6 +92,7 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/start_the_test_button"
                 android:backgroundTint="@color/light_grey"
                 android:layout_below="@+id/combination_kana_recycler"
                 android:layout_centerHorizontal="true"

@@ -1,4 +1,6 @@
 package com.example.dailyjapanese
 
-class Kana(var kana:String, var roman: String, var selected: Boolean = false) {
+import java.io.Serializable
+
+class Kana(var kana:String, var roman: String, var selected: Boolean = false) : Serializable{
 }

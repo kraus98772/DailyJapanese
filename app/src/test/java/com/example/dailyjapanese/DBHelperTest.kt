@@ -38,5 +38,26 @@ class DBHelperTest {
         assertTrue(true)
     }
 
+    @Test
+    fun getSelectedKana(){
+        var displayKana = dbHelper.getDisplayKana(KanaType.MAIN, Kanamoji.hiragana)
+//        あ
+//        か
+//        さ
+//        た
+//        な
+//        は
+//        ま
+//        や
+//        ら
+//        わ
+
+        var res = dbHelper.getSelectedKana(displayKana, Kanamoji.hiragana)
+        for (i in res)
+        {
+            println(i.kana)
+        }
+    }
+
 
 }

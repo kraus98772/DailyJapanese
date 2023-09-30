@@ -1,6 +1,8 @@
 package com.example.dailyjapanese
 
-enum class Kanamoji(val value: String) {
+import java.io.Serializable
+
+enum class Kanamoji(val value: String) : Serializable {
     hiragana("hiragana"),
     katakana("katakana")
 }
