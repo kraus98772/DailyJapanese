@@ -7,7 +7,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowLog
 
 @RunWith(RobolectricTestRunner::class)
@@ -52,7 +51,7 @@ class DBHelperTest {
 //        ら
 //        わ
 
-        var res = dbHelper.getSelectedKana(displayKana, Kanamoji.hiragana)
+        var res = dbHelper.getKanaBySelectedDisplayKana(displayKana, Kanamoji.hiragana)
         for (i in res)
         {
             println(i.kana)

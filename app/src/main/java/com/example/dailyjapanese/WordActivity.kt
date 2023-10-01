@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.View
-import android.view.animation.AlphaAnimation
-import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -29,7 +27,7 @@ class WordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         setWord(Word(japaneseWord.toString(), kanaScript.toString(), romaji.toString(), englishWord.toString(), additionalInfo.toString()))
 
-        findViewById<ImageButton>(R.id.returnButton).setOnClickListener{
+        findViewById<ImageButton>(R.id.go_back_button).setOnClickListener{
             finish()
         }
 

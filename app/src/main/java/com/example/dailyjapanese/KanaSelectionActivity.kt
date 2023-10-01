@@ -29,7 +29,7 @@ class KanaSelectionActivity : AppCompatActivity() {
             setupKanaSelection(dbHelper,
                 mainKana,
                 findViewById(R.id.main_kana_recycler),
-                findViewById(R.id.all_main_kana),
+                findViewById(R.id.all_main_kana_selectable),
                 kanamoji, KanaType.MAIN,
                 2,
                 spacingH, spacingV)
@@ -37,7 +37,7 @@ class KanaSelectionActivity : AppCompatActivity() {
             setupKanaSelection(dbHelper,
                 dakutenKana,
                 findViewById(R.id.dakuten_kana_recycler),
-                findViewById(R.id.all_dakuten_kana),
+                findViewById(R.id.all_dakuten_kana_selectable),
                 kanamoji, KanaType.DAKUTEN,
                 1,
                 spacingH, spacingV)
@@ -45,7 +45,7 @@ class KanaSelectionActivity : AppCompatActivity() {
             setupKanaSelection(dbHelper,
                 combinationKana,
                 findViewById(R.id.combination_kana_recycler),
-                findViewById(R.id.all_combination_kana),
+                findViewById(R.id.all_combination_kana_selectable),
                 kanamoji, KanaType.COMBINATION,
                 2,
                 spacingH, spacingV)
@@ -56,11 +56,14 @@ class KanaSelectionActivity : AppCompatActivity() {
             swipeRefreshLayout.isRefreshing = false
         }
 
-        findViewById<MaterialButton>(R.id.start_the_test_button).setOnClickListener{
-            startTheTest(dbHelper, mainKana, dakutenKana, combinationKana)
+        findViewById<MaterialButton>(R.id.start_test_button).setOnClickListener{
+            if (kanamoji != null)
+            {
+                startTheTest(dbHelper, kanamoji, mainKana, dakutenKana, combinationKana)
+            }
         }
 
-        findViewById<ImageButton>(R.id.returnButton).setOnClickListener{
+        findViewById<ImageButton>(R.id.go_back_button).setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
@@ -112,23 +115,22 @@ class KanaSelectionActivity : AppCompatActivity() {
         allKanaSelectable.toggleSelect()
     }
 
-    private fun startTheTest(dbHelper: DBHelper, vararg kana: ArrayList<Kana>)
+    private fun startTheTest(dbHelper: DBHelper, kanamoji: Kanamoji, vararg kana: ArrayList<Kana>)
     {
         var kanaForTest = ArrayList<Kana>()
         for (i in kana)
         {
-            // CHange the name of the functions
-            kanaForTest.addAll(getSelectedKana(i))
+            kanaForTest.addAll(getSelectedDisplayKana(i))
         }
 
         var intent = Intent(this, KanaTestActivity::class.java)
-        var finalKana = dbHelper.getSelectedKana(kanaForTest, Kanamoji.hiragana)
+        var finalKana = dbHelper.getKanaBySelectedDisplayKana(kanaForTest, kanamoji)
 
         intent.putExtra("kanaForTest", finalKana)
         startActivity(intent)
     }
 
-    private fun getSelectedKana(kana: ArrayList<Kana>) : ArrayList<Kana>
+    private fun getSelectedDisplayKana(kana: ArrayList<Kana>) : ArrayList<Kana>
     {
         var selectedKana = ArrayList<Kana>()
         for (i in kana)

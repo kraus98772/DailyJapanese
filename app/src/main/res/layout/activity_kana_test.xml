@@ -7,31 +7,33 @@
     tools:context=".KanaTestActivity">
 
     <ImageButton
-        android:id="@+id/returnButton"
+        android:id="@+id/go_back_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#fff"
         android:src="@drawable/left_arrow"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/return_button" />
 
     <TextView
         android:id="@+id/currentKana"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="あ"
+        android:text="@string/placeholder_kana"
         android:textColor="@color/dark_grey_text"
         android:textSize="180sp"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/returnButton" />
+        app:layout_constraintTop_toBottomOf="@+id/go_back_button" />
 
     <EditText
         android:id="@+id/input_field"
         android:layout_width="200sp"
+        android:inputType="text"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/kana_test_input"
@@ -42,7 +44,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currentKana"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -53,6 +57,7 @@
         android:textColor="@color/dark_grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_field" />
+        app:layout_constraintTop_toBottomOf="@+id/input_field"
+        android:contentDescription="@string/go_to_next_kana_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

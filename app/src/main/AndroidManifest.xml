@@ -18,6 +18,9 @@
         android:theme="@style/Theme.DailyJapanese"
         tools:targetApi="31">
         <activity
+            android:name=".TestResultsActivity"
+            android:exported="false" />
+        <activity
             android:name=".KanaTestActivity"
             android:exported="false" />
         <activity

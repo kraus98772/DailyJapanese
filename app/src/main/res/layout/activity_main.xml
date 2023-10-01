@@ -36,7 +36,8 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:id="@+id/open_drawer_button"
-            android:src="@drawable/menu" />
+            android:src="@drawable/menu"
+            android:contentDescription="@string/menu_button" />
 
     </RelativeLayout>
 
@@ -60,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/categories_button"
-            android:text="Categories"
+            android:text="@string/categories"
             android:backgroundTint="@color/light_grey2"
             style="@style/btn_style"
             android:textColor="@color/dark_grey"
@@ -70,7 +71,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Settings"
+            android:text="@string/settings"
             android:id="@+id/settings_button"
             android:backgroundTint="@color/light_grey2"
             style="@style/btn_style"
@@ -81,7 +82,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hiragana"
+            android:text="@string/hiragana"
             android:id="@+id/hiragana_button"
             android:backgroundTint="@color/light_grey2"
             style="@style/btn_style"
@@ -92,7 +93,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Katakana"
+            android:text="@string/katakana"
             android:id="@+id/katakana_button"
             android:backgroundTint="@color/light_grey2"
             style="@style/btn_style"
@@ -135,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/light_grey2"
-        android:text="NEXT WORD"
+        android:text="@string/next_word"
         android:textColor="@color/dark_grey"
         app:cornerRadius="10dp"
         app:layout_constraintTop_toBottomOf="@+id/word_view_layout"

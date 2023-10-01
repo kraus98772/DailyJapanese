@@ -19,22 +19,6 @@
         android:textSize="28dp"
         />
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/kanaScript"-->
-<!--        android:text="ほん"-->
-<!--        android:layout_marginLeft="8dp"-->
-<!--    />-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/romaji"-->
-<!--        android:text="hon"-->
-<!--        android:layout_marginLeft="8dp"-->
-<!--    />-->
-
     <Space
         android:layout_width="0dp"
         android:layout_height="0dp"

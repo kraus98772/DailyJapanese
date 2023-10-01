@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Add strike through wrong_answer programmatically
+    Consider removing relative layout
+-->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:layout_height="150dp"
+    android:id="@+id/result_card"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:backgroundTint="#944654">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/kana"
+            android:text="あ"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/dark_grey"
+            android:textSize="48sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="o"
+            android:textSize="20sp"
+            android:id="@+id/wrong_answer"
+            android:layout_below="@+id/kana"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="a"
+            android:textSize="20sp"
+            android:textColor="@color/dark_grey"
+            android:id="@+id/correct_answer"
+            android:layout_below="@+id/wrong_answer"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -7,4 +7,6 @@
     <color name="mid_grey">#808080</color>
     <color name="dark_grey">#333333</color>
     <color name="dark_grey_text">#626262</color>
+    <color name="correct_answer">#85FF9E</color>
+    <color name="wrong_answer">#944654</color>
 </resources>

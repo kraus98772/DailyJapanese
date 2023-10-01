@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import java.io.File
 import java.io.FileOutputStream
-import java.util.Collections
 
 class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) : SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
 
@@ -86,25 +85,15 @@ class DBHelper(val context : Context, factory : SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-    fun getSelectedKana(kanaFromDisplay: ArrayList<Kana>, kanamoji: Kanamoji) : ArrayList<Kana>
+    fun getKanaBySelectedDisplayKana(kanaFromDisplay: ArrayList<Kana>, kanamoji: Kanamoji) : ArrayList<Kana>
     {
         val db = this.readableDatabase
         var kana = ArrayList<Kana>()
 
         kana.addAll(kanaFromDisplay)
-
         kana.reverse()
         var result = ArrayList<Kana>()
 
-        /*
-
-        1. Get All Kana
-        2. Find the first one from kanaFromDisplay
-        3. Append result with kana one by one until next kana that isFront = 1
-        4. Repeat
-
-        !!! kanaFromDisplay should be in correct order to ensure optimal time
-        */
         val kanamojiName = kanamoji.value
         var cur = db.rawQuery("SELECT $kanamojiName, romaji, isFront FROM $KANA_TABLE_NAME", null)
         cur.moveToFirst()
