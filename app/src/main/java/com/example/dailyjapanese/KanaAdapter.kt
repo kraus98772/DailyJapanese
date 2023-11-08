@@ -4,16 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class KanaAdapter(private var allKanaSelectableView: SelectableView, private val context: Context, private val kanaList: ArrayList<Kana>, private val isWide: Boolean) : RecyclerView.Adapter<KanaAdapter.KanaHolder>() {
+class KanaAdapter(private var allKanaToggle: ToggleButton, private val context: Context, private val kanaList: ArrayList<Kana>, private val isWide: Boolean) : RecyclerView.Adapter<KanaAdapter.KanaHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): KanaHolder {
 
-        var view: View = LayoutInflater.from(context).inflate(R.layout.kana_list_element, parent, false)
+        var view: View = LayoutInflater.from(context).inflate(R.layout.kana_selectable_list_element, parent, false)
         if (isWide){
-            view = LayoutInflater.from(context).inflate(R.layout.kana_list_element_wide, parent, false)
+            view = LayoutInflater.from(context).inflate(R.layout.kana_selectable_list_element_wide, parent, false)
         }
 
         return KanaHolder(view)
@@ -27,26 +27,24 @@ class KanaAdapter(private var allKanaSelectableView: SelectableView, private val
 
     override fun onBindViewHolder(holder: KanaHolder, position: Int) {
         var kana = kanaList[position]
-        holder.setDetails(kana.kana + "/" + kana.roman, kana.selected)
-        holder.selectableView.setOnClickListener{
-            kana.selected = !kana.selected
-            if (allKanaSelectableView.isViewSelected())
+        var kanaText = kana.kana + "/" + kana.roman
+        holder.setDetails(kanaText, kana.selected)
+        holder.kanaToggle.setOnClickListener{
+            if (allKanaToggle.isChecked)
             {
-                allKanaSelectableView.toggleSelect()
+                allKanaToggle.isChecked = !allKanaToggle.isChecked
             }
-            holder.selectableView.toggleSelect()
+            holder.kanaToggle.text = kanaText
+            kana.selected = !kana.selected
         }
     }
 
     class KanaHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var selectableView: SelectableView = itemView.findViewById(R.id.kana_selectable_view)
+        var kanaToggle = itemView.findViewById<ToggleButton>(R.id.kana_toggle)
         fun setDetails(text: String, isSelected: Boolean)
         {
-            selectableView.text = text
-            if (isSelected)
-            {
-                selectableView.toggleSelect()
-            }
+            kanaToggle.isChecked = isSelected
+            kanaToggle.text = text
         }
     }
 }

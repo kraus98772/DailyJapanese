@@ -6,16 +6,16 @@
   <path
       android:pathData="M6.5,14L25.5,14A2,2 0,0 1,27.5 16L27.5,16A2,2 0,0 1,25.5 18L6.5,18A2,2 0,0 1,4.5 16L4.5,16A2,2 0,0 1,6.5 14z"
       android:strokeWidth="0.961583"
-      android:fillColor="@color/dark_grey"
+      android:fillColor="@color/onSurface"
       android:fillType="evenOdd"/>
   <path
       android:pathData="M6.5,21L25.5,21A2,2 0,0 1,27.5 23L27.5,23A2,2 0,0 1,25.5 25L6.5,25A2,2 0,0 1,4.5 23L4.5,23A2,2 0,0 1,6.5 21z"
       android:strokeWidth="0.961583"
-      android:fillColor="@color/dark_grey"
+      android:fillColor="@color/onSurface"
       android:fillType="evenOdd"/>
   <path
       android:pathData="M6.5,7L25.5,7A2,2 0,0 1,27.5 9L27.5,9A2,2 0,0 1,25.5 11L6.5,11A2,2 0,0 1,4.5 9L4.5,9A2,2 0,0 1,6.5 7z"
       android:strokeWidth="0.961583"
-      android:fillColor="@color/dark_grey"
+      android:fillColor="@color/onSurface"
       android:fillType="evenOdd"/>
 </vector>

@@ -3,9 +3,12 @@
     <style name="Base.Theme.DailyJapanese" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#FFF</item>
+<!--        <item name="android:windowFullscreen">true</item>-->
+        <item name="android:statusBarColor">@color/surface</item>
     </style>
     <style name="btn_style" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@null</item>
+<!--        <item name="android:windowFullscreen">true</item>-->
     </style>
 
     <style name="Theme.DailyJapanese" parent="Base.Theme.DailyJapanese" />

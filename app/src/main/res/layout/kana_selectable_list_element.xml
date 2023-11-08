@@ -1,0 +1,10 @@
+<ToggleButton xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="@dimen/selectable_height"
+    android:layout_width="140dp"
+    android:id="@+id/kana_toggle"
+    android:textOn=""
+    android:textOff=""
+    android:background="@drawable/kana_selectable_toggle_button"
+    android:textColor="@color/kana_selectable_text_color"
+    android:elevation="2dp"
+    />

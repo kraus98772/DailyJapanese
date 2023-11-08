@@ -1,12 +1,14 @@
 package com.example.dailyjapanese
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
@@ -15,7 +17,7 @@ class TestResultsAdapter (private var context: Context, private val kanaTestAnsw
 
     class KanaTestAnswerHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
-        var resultCard = itemView.findViewById<TextView>(R.id.result_card)
+        var resultCard = itemView.findViewById<CardView>(R.id.result_card)
         var kana = itemView.findViewById<TextView>(R.id.kana)
         var wrongAnswer = itemView.findViewById<TextView>(R.id.wrong_answer)
         var correctAnswer = itemView.findViewById<TextView>(R.id.correct_answer)
@@ -23,15 +25,15 @@ class TestResultsAdapter (private var context: Context, private val kanaTestAnsw
         fun setDetails(context: Context,kanaTestAnswer: KanaTestAnswer)
         {
             kana.text = kanaTestAnswer.kana.kana
-            correctAnswer.text = kanaTestAnswer.expected
-            if(kanaTestAnswer.actual != kanaTestAnswer.expected)
+            correctAnswer.text = kanaTestAnswer.kana.roman
+            if(!kanaTestAnswer.isCorrect)
             {
-                wrongAnswer.text = kanaTestAnswer.actual
+                wrongAnswer.text = kanaTestAnswer.answer
                 wrongAnswer.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                resultCard.setBackgroundColor(ContextCompat.getColor(context, R.color.wrong_answer))
+                resultCard.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.wrong_answer))
             }else{
                 wrongAnswer.visibility = View.GONE
-                resultCard.setBackgroundColor(ContextCompat.getColor(context, R.color.correct_answer))
+                resultCard.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.correct_answer))
             }
         }
     }

@@ -1,5 +1,8 @@
 package com.example.dailyjapanese
 
-class KanaTestAnswer(var kana: Kana, var expected: String, var actual: String) {
+import java.io.Serializable
+
+class KanaTestAnswer(var kana: Kana, var answer: String, var isCorrect: Boolean = false) : Serializable {
+
 
 }

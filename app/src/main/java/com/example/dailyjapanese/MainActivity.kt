@@ -9,6 +9,7 @@ import android.speech.tts.TextToSpeech
 import android.speech.tts.TextToSpeech.ERROR
 import android.speech.tts.TextToSpeech.OnInitListener
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -67,6 +68,8 @@ class MainActivity : AppCompatActivity(), OnInitListener {
             findViewById(R.id.menu_dummy)
         )
         setupMenuButtons()
+
+        findViewById<ImageButton>(R.id.go_back_button).visibility = View.GONE
     }
 
 

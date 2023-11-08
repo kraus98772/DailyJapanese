@@ -1,12 +1,17 @@
 package com.example.dailyjapanese
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import java.util.Locale
 
 class KanaTestActivity : AppCompatActivity() {
@@ -14,19 +19,21 @@ class KanaTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kana_test)
 
-        //Use only this_notation_for_layout_elements
         val kanaToTest = intent.getSerializableExtra("kanaForTest") as? ArrayList<Kana>
         val currentIndex = Position(0)
         val currentKana = findViewById<TextView>(R.id.currentKana)
-        var testResults = ArrayList<Boolean>()
+        var testResults = ArrayList<KanaTestAnswer>()
         val inputField = findViewById<EditText>(R.id.input_field)
 
+
         if (kanaToTest != null) {
+            createTestAnswersList(testResults, kanaToTest)
             currentKana.text = kanaToTest[currentIndex.index].kana
 
             findViewById<EditText>(R.id.input_field).setOnEditorActionListener{ v, actionId, event ->
                 if(actionId == EditorInfo.IME_ACTION_DONE){
-                    nextKana(currentIndex, inputField, currentKana, testResults, kanaToTest)
+                    setAnswer(testResults)
+                    animateKanaAnswer(kanaToTest, currentIndex, inputField, currentKana, testResults)
                     true
                 } else {
                     false
@@ -34,51 +41,105 @@ class KanaTestActivity : AppCompatActivity() {
             }
 
             findViewById<ImageButton>(R.id.next).setOnClickListener{
-
-                nextKana(currentIndex, inputField, currentKana, testResults, kanaToTest)
+                setAnswer(testResults)
+                animateKanaAnswer(kanaToTest, currentIndex, inputField, currentKana, testResults)
             }
         }
 
         findViewById<ImageButton>(R.id.go_back_button).setOnClickListener{
             finish()
         }
+
     }
 
-    private fun getPercentage(results: ArrayList<Boolean>) : Float
+
+    private fun createTestAnswersList(kanaTestAnswers: ArrayList<KanaTestAnswer>, kanaToTest: ArrayList<Kana>)
     {
-        var correctCounter = 0
-        for (result in results)
+        for (kana in kanaToTest)
         {
-            if (result)
+            kanaTestAnswers.add(KanaTestAnswer(kana, ""))
+        }
+    }
+
+    private fun setAnswer(kanaTestAnswers: ArrayList<KanaTestAnswer>)
+    {
+        var answer = findViewById<EditText>(R.id.input_field).text.toString()
+        var currentKana = findViewById<TextView>(R.id.currentKana).text.toString()
+        for (i in kanaTestAnswers)
+        {
+            if (i.kana.kana == currentKana)
             {
-                correctCounter += 1
+                i.answer = answer
+                i.isCorrect = isAnswerCorrect(i.kana.roman, answer)
             }
         }
-        return (correctCounter.toFloat() / results.size.toFloat()) * 100
     }
 
-    private fun nextKana(currentIndex: Position, inputField: EditText, currentKana: TextView, testResults: ArrayList<Boolean>, kanaToTest: ArrayList<Kana>)
-    {
+    private fun getNextKana(currentIndex: Position, kanaToTest: ArrayList<Kana>, testResults: ArrayList<KanaTestAnswer>){
+        var currentKana = findViewById<TextView>(R.id.currentKana)
+        var inputField = findViewById<EditText>(R.id.input_field)
+
+        resetKanaColor()
         if ((currentIndex.index + 1) < kanaToTest.size)
         {
-            testResults.add(isAnswerCorrect(kanaToTest[currentIndex.index].roman, inputField.text.toString()))
             currentIndex.next()
             currentKana.text = kanaToTest[currentIndex.index].kana
             inputField.setText("")
         }
         else if((currentIndex.index + 1) == kanaToTest.size) {
-            testResults.add(isAnswerCorrect(kanaToTest[currentIndex.index].roman, inputField.text.toString()))
-            currentIndex.next()
-            Toast.makeText(this, String.format("%.2f", getPercentage(testResults)) + "%", Toast.LENGTH_SHORT).show()
+
+            goToResultsActivity(testResults)
         }
         else
         {
-            Toast.makeText(this, String.format("%.2f", getPercentage(testResults)) + "%", Toast.LENGTH_SHORT).show()
+            goToResultsActivity(testResults)
         }
     }
 
+    private fun animateKanaAnswer(kanaToTest: ArrayList<Kana>, currentIndex: Position, inputField: EditText, currentKana: TextView, testResults: ArrayList<KanaTestAnswer>)
+    {
+
+        val originalColor = ContextCompat.getColor(this, R.color.onSurface)
+        val wrongAnswerColor = ContextCompat.getColor(this, R.color.wrong_answer)
+        val correctAnswerColor = ContextCompat.getColor(this, R.color.correct_answer)
+
+        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(),
+            originalColor,
+            if (isAnswerCorrect(kanaToTest[currentIndex.index].roman, inputField.text.toString())) correctAnswerColor else wrongAnswerColor)
+
+        colorAnimator.duration = 400
+
+        colorAnimator.addUpdateListener { animator ->
+            val animatedColor = animator.animatedValue as Int
+            currentKana.setTextColor(animatedColor)
+        }
+
+        colorAnimator.addListener(object :AnimatorListenerAdapter(){
+            override fun onAnimationEnd(animation: Animator) {
+                getNextKana(currentIndex, kanaToTest, testResults)
+            }
+        })
+
+        colorAnimator.start()
+    }
+
+    private fun goToResultsActivity(testResults: ArrayList<KanaTestAnswer>)
+    {
+        var intent = Intent(this, TestResultsActivity::class.java)
+        intent.putExtra("testResults", testResults)
+        startActivity(intent)
+    }
+    private fun resetKanaColor()
+    {
+        findViewById<TextView>(R.id.currentKana).setTextColor(ContextCompat.getColor(this, R.color.onSurface))
+    }
     private fun isAnswerCorrect(expected: String, actual: String) : Boolean
     {
         return expected.lowercase(Locale.ROOT) == actual.lowercase(Locale.ROOT)
+    }
+
+    private fun exitTestResults()
+    {
+        startActivity(Intent(this, KanaSelectionActivity::class.java))
     }
 }

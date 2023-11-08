@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import java.util.Locale
@@ -44,6 +45,8 @@ class WordActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             findViewById(R.id.info_popup),
             findViewById(R.id.menu_dummy)
         )
+
+        findViewById<ImageView>(R.id.open_drawer_button).visibility = View.GONE
 
     }
 

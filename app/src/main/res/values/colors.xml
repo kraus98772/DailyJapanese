@@ -7,6 +7,14 @@
     <color name="mid_grey">#808080</color>
     <color name="dark_grey">#333333</color>
     <color name="dark_grey_text">#626262</color>
-    <color name="correct_answer">#85FF9E</color>
-    <color name="wrong_answer">#944654</color>
+    <color name="correct_answer">#59FF7A</color>
+    <color name="wrong_answer">#FF3A5E</color>
+
+    <color name="Primary800">#434343</color>
+    <color name="Primary900">#222222</color>
+<!--    <color name="surface">#E0E0E0</color>-->
+    <color name="surface">#FFFFFF</color>
+
+    <color name="onSurface">#DE000000</color>
+    <color name="onPrimary">#FFFFFF</color>
 </resources>

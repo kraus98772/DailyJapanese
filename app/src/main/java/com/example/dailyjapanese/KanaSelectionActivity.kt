@@ -1,9 +1,13 @@
 package com.example.dailyjapanese
 
 import android.content.Intent
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -66,13 +70,15 @@ class KanaSelectionActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.go_back_button).setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
         }
+
+        findViewById<ImageView>(R.id.open_drawer_button).visibility = View.GONE
     }
 
 
-    private fun setupKanaSelection(dbHelper: DBHelper, kana: ArrayList<Kana>, recyclerView: RecyclerView, allKanaSelectable: SelectableView, kanamoji: Kanamoji, kanaType: KanaType, columnSpan: Int, spacingH: Int, spacingV: Int)
+    private fun setupKanaSelection(dbHelper: DBHelper, kana: ArrayList<Kana>, recyclerView: RecyclerView, allKanaToggle: ToggleButton, kanamoji: Kanamoji, kanaType: KanaType, columnSpan: Int, spacingH: Int, spacingV: Int)
     {
         kana.addAll(dbHelper.getDisplayKana(kanaType, kanamoji))
-        val kanaAdapter = KanaAdapter(allKanaSelectable,this, kana, columnSpan == 1)
+        val kanaAdapter = KanaAdapter(allKanaToggle,this, kana, columnSpan == 1)
 
         recyclerView.adapter = kanaAdapter;
         recyclerView.layoutManager = object: GridLayoutManager(this, columnSpan){
@@ -83,36 +89,27 @@ class KanaSelectionActivity : AppCompatActivity() {
 
         recyclerView.addItemDecoration(GridSpacingItemDecoration(columnSpan, spacingH, spacingV, true, 0))
 
-        allKanaSelectable.setOnClickListener{
-            selectAll(allKanaSelectable, kana, kanaAdapter, recyclerView, columnSpan)
+        allKanaToggle.setOnClickListener{
+            // the isChecked changes before the if statement is executed that's why the values are inversed
+            if (allKanaToggle.isChecked){
+                toggleAll(kana, kanaAdapter, recyclerView, columnSpan, true)
+            }else
+            {
+                toggleAll(kana, kanaAdapter, recyclerView, columnSpan, false)
+            }
         }
     }
 
-    private fun selectAll(allKanaSelectable: SelectableView, kanaArrayList: ArrayList<Kana>, kanaAdapter: KanaAdapter, recyclerView: RecyclerView, columnSpan: Int)
+    private fun toggleAll(kanaArrayList: ArrayList<Kana>, kanaAdapter: KanaAdapter, recyclerView: RecyclerView, columnSpan: Int, toggleOn: Boolean)
     {
-        if (!allKanaSelectable.isViewSelected())
+
+        for(field in kanaArrayList.indices)
         {
-            for(field in kanaArrayList.indices)
-            {
-                if (!kanaArrayList[field].selected)
-                {
-                    kanaArrayList[field].selected = true
-                }
-            }
-        }
-        else if(allKanaSelectable.isViewSelected()){
-            for(field in kanaArrayList.indices)
-            {
-                if (kanaArrayList[field].selected)
-                {
-                    kanaArrayList[field].selected = false
-                }
-            }
+            kanaArrayList[field].selected = toggleOn
         }
         recyclerView.adapter = kanaAdapter
         recyclerView.layoutManager = GridLayoutManager(this, columnSpan)
         kanaAdapter.notifyDataSetChanged()
-        allKanaSelectable.toggleSelect()
     }
 
     private fun startTheTest(dbHelper: DBHelper, kanamoji: Kanamoji, vararg kana: ArrayList<Kana>)

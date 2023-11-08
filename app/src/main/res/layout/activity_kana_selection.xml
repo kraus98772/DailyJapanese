@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/swipe_refresh_layout"
     tools:context=".KanaSelectionActivity"
+    android:background="@color/surface"
     >
 
     <androidx.core.widget.NestedScrollView
@@ -16,51 +17,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:backgroundTint="#fff"
-                android:src="@drawable/left_arrow"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:id="@+id/go_back_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/return_button" />
+            <include layout="@layout/top_nav_bar"/>
 
-            <com.example.dailyjapanese.SelectableView
-                android:id="@+id/all_main_kana_selectable"
+
+            <ToggleButton
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/selectable_height"
+                android:layout_height="45dp"
                 android:layout_marginTop="@dimen/kana_spacingV"
-                android:text="@string/all_main_kana"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/go_back_button"
-                app:selected="false"
-                android:layout_marginHorizontal="@dimen/kana_spacingH"
-                android:background="@drawable/kana_select_button_off"
-                android:gravity="center" />
+                android:background="@drawable/kana_selectable_toggle_button"
+                android:textColor="@color/kana_selectable_text_color"                android:id="@+id/all_main_kana_selectable"
+                android:layout_marginHorizontal="30dp"
+                android:layout_below="@+id/top_nav_bar"
+                android:textOn="@string/all_main_kana"
+                android:textOff="@string/all_main_kana"/>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+
                 android:id="@+id/main_kana_recycler"
                 android:layout_below="@+id/all_main_kana_selectable"
                 />
 
-            <com.example.dailyjapanese.SelectableView
-                android:id="@+id/all_dakuten_kana_selectable"
+
+
+            <ToggleButton
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/selectable_height"
-                android:text="@string/all_dakuten_kana"
-                android:layout_marginHorizontal="@dimen/kana_spacingH"
-                app:selected="false"
-                android:background="@drawable/kana_select_button_off"
-                android:gravity="center"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@id/main_kana_recycler"
-                />
+                android:layout_height="45dp"
+                android:background="@drawable/kana_selectable_toggle_button"
+                android:textColor="@color/kana_selectable_text_color"                android:id="@+id/all_dakuten_kana_selectable"
+                android:layout_marginHorizontal="30dp"
+                android:layout_below="@+id/main_kana_recycler"
+                android:textOn="@string/all_dakuten_kana"
+                android:textOff="@string/all_dakuten_kana"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="wrap_content"
@@ -70,18 +61,16 @@
                 android:layout_below="@+id/all_dakuten_kana_selectable"
                 />
 
-            <com.example.dailyjapanese.SelectableView
-                android:id="@+id/all_combination_kana_selectable"
+            <ToggleButton
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/selectable_height"
-                android:text="@string/all_combination_kana"
-                android:layout_marginHorizontal="@dimen/kana_spacingH"
-                app:selected="false"
-                android:background="@drawable/kana_select_button_off"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
+                android:layout_height="45dp"
+                android:background="@drawable/kana_selectable_toggle_button"
+                android:textColor="@color/kana_selectable_text_color"
+                android:id="@+id/all_combination_kana_selectable"
+                android:layout_marginHorizontal="30dp"
                 android:layout_below="@+id/dakuten_kana_recycler"
-                />
+                android:textOn="@string/all_combination_kana"
+                android:textOff="@string/all_combination_kana"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="wrap_content"
@@ -95,11 +84,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="60dp"
                 android:id="@+id/start_test_button"
-                android:backgroundTint="@color/light_grey"
+                android:backgroundTint="@color/Primary900"
                 android:layout_below="@+id/combination_kana_recycler"
                 android:layout_centerHorizontal="true"
                 android:text="@string/start_the_test"
-                android:textColor="@color/dark_grey"
+                android:textColor="@color/onPrimary"
                 app:cornerRadius="10dp"
                 android:layout_marginBottom="@dimen/kana_spacingV"
                 />
