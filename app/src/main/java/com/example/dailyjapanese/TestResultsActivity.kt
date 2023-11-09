@@ -1,9 +1,14 @@
 package com.example.dailyjapanese
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 
 class TestResultsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +34,14 @@ class TestResultsActivity : AppCompatActivity() {
             resultsRecyclerView.addItemDecoration(GridSpacingItemDecoration(2, spacingH, spacingV, true, 0))
         }
 
+        findViewById<ImageView>(R.id.open_drawer_button).visibility = View.GONE
 
+        findViewById<ImageView>(R.id.go_back_button).setOnClickListener{
+            startActivity(Intent(this, KanaSelectionActivity::class.java))
+        }
+
+        findViewById<MaterialButton>(R.id.finish_test_button).setOnClickListener{
+            startActivity(Intent(this, KanaSelectionActivity::class.java))
+        }
     }
 }
